@@ -1,5 +1,4 @@
 import os
-import asyncio
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
@@ -53,7 +52,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
         msg = handle_player_action(game, user_id, action)
         await query.edit_message_text(text=msg)
 
-async def main():
+def main():
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("join", join))
@@ -61,7 +60,7 @@ async def main():
     app.add_handler(CallbackQueryHandler(button))
 
     print("Bot is running...")
-    await app.run_polling()
+    app.run_polling()  # 同步阻塞启动，适合 Heroku
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
