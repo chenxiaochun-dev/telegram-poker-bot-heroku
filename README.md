@@ -17,6 +17,9 @@
 ## 本地运行
 
 ```bash
+git clone https://github.com/chenxiaochun-dev/telegram-poker-bot-heroku.git
+cd telegram-poker-bot-heroku
 pip install -r requirements.txt
+export TOKEN=7271904028:AAFzPGdTAz1P5A3QXdvwO7dW8ZkBVn-EOKM
 python main.py
 ```
