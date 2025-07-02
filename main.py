@@ -1,15 +1,23 @@
 import os
+import asyncio
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
+from telegram.ext import (
+    ApplicationBuilder,
+    CommandHandler,
+    CallbackQueryHandler,
+    ContextTypes,
+)
 
 from game import start_new_game, handle_player_action
 from data import games
 
-TOKEN = os.environ["TOKEN"]
+TOKEN = os.environ.get("TOKEN")
 
 # /start 命令
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("欢迎来到德州扑克 Bot！\n发送 /join 加入游戏，或 /deal 开始发牌")
+    await update.message.reply_text(
+        "欢迎来到德州扑克 Bot！\n发送 /join 加入游戏，或 /deal 开始发牌"
+    )
 
 # /join 命令
 async def join(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -45,13 +53,15 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
         msg = handle_player_action(game, user_id, action)
         await query.edit_message_text(text=msg)
 
-def main():
+async def main():
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("join", join))
     app.add_handler(CommandHandler("deal", deal))
     app.add_handler(CallbackQueryHandler(button))
-    app.run_polling()
+
+    print("Bot is running...")
+    await app.run_polling()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
