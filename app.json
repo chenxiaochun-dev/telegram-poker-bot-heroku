@@ -1,0 +1,15 @@
+{
+  "name": "Telegram Texas Holdem Bot",
+  "description": "Telegram bot for playing Texas Holdem in group chat.",
+  "repository": "https://github.com/chenxiaochun-dev/telegram-poker-bot-heroku",
+  "keywords": ["telegram", "poker", "texas hold'em", "bot"],
+  "env": {
+    "TOKEN": {
+      "description": "Telegram Bot Token from BotFather",
+      "required": true
+    }
+  },
+  "buildpacks": [
+    {"url": "heroku/python"}
+  ]
+}

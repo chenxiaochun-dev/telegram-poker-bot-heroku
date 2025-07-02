@@ -1,0 +1,1 @@
+games = {}  # chat_id -> Game 实例映射
